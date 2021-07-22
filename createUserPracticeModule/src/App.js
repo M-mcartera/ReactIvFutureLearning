@@ -4,7 +4,7 @@ import AddUser from "./components/User/AddUser";
 import UserList from "./components/User/UsersList";
 
 function App() {
-  const [userList, setUserList] = useState([ ]);
+  const [userList, setUserList] = useState([]);
   const saveUserData = (user) => {
     const newUser = { ...user };
     setUserList((prevUsers) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
@@ -6,71 +6,67 @@ import ErrorModal from "../UI/ErrorModal";
 import styles from "./AddUser.module.css";
 
 const AddUser = (props) => {
-  const [userName, setuserName] = useState("");
-  const [userAge, setuserAge] = useState("");
+  const usernameInput = useRef();
+  const userageInput = useRef();
   const [error, setError] = useState();
 
-  const usernameHandler = (event) => {
-    setuserName(event.target.value);
-  };
-
-  const userAgeHandler = (event) => {
-    setuserAge(event.target.value);
-  };
   const addUserHandler = (event) => {
+    //instead of using state
+    const username = usernameInput.current.value;
+    const userage = userageInput.current.value;
     event.preventDefault();
-    if (userName.trim().length === 0 || userAge.trim().length === 0) {
+    if (username.trim().length === 0 || userage.trim().length === 0) {
       setError({
-        title: 'Invalid input',
-        message: 'Please insert a valid data (not empty)',
+        title: "Invalid input",
+        message: "Please insert a valid data (not empty)",
       });
       return;
     }
-    if (+userAge < 1) {
+    if (+userage < 1) {
       setError({
-        title: 'Invalid age',
-        message: 'Please insert a valid age'
+        title: "Invalid age",
+        message: "Please insert a valid age",
       });
       return;
     }
     const newUser = {
       id: Math.random().toString(),
-      userName: userName.charAt(0).toUpperCase() + userName.slice(1),
-      age: +userAge,
+      userName: username.charAt(0).toUpperCase() + username.slice(1),
+      age: +userage,
     };
     props.onsaveUserData(newUser);
-    setuserAge("");
-    setuserName("");
+    usernameInput.current.value = "";
+    userageInput.current.value = "";
   };
-  const closeModalHandler = () =>{
+  const closeModalHandler = () => {
     setError(null);
-  }
+  };
 
   return (
     <div>
-    {error &&<ErrorModal title={error.title} message={error.message} onConfirm={closeModalHandler}/>}
-    <Card className={styles.input}>
-      <form onSubmit={addUserHandler}>
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          onChange={usernameHandler}
-          value={userName}
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={closeModalHandler}
         />
-        <label htmlFor="userAge">Age</label>
-        <input
-          id="userAge"
-          type="number"
-          min="0"
-          step="1"
-          onChange={userAgeHandler}
-          value={userAge}
-        />
-        <Button type={"submit"}>Add User</Button>
-      </form>
-    </Card>
-    </div>  
+      )}
+      <Card className={styles.input}>
+        <form onSubmit={addUserHandler}>
+          <label htmlFor="username">Username</label>
+          <input id="username" type="text" ref={usernameInput} />
+          <label htmlFor="userAge">Age</label>
+          <input
+            id="userAge"
+            type="number"
+            min="0"
+            step="1"
+            ref={userageInput}
+          />
+          <Button type={"submit"}>Add User</Button>
+        </form>
+      </Card>
+    </div>
   );
 };
 
