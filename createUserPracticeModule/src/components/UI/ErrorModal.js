@@ -4,19 +4,19 @@ import Button from "./Button";
 
 import styles from "./ErrorModal.module.css";
 
-const ErrorModal = () => {
+const ErrorModal = (props) => {
   return (
     <div>
-      <div className={styles.backdrop}></div>
+      <div className={styles.backdrop} onClick={props.onConfirm}></div>
       <Card className={styles.modal}>
         <header className={styles.header}>
-          <h2>Some text</h2>
+          <h2>{props.title}</h2>
         </header>
         <div className={styles.content}>
-          <p>SOme text</p>
+          <p>{props.message}</p>
         </div>
         <footer className={styles.actions}>
-          <Button type="button">Cancel</Button>
+          <Button type="button" onClick={props.onConfirm}>Cancel</Button>
         </footer>
       </Card>
     </div>
