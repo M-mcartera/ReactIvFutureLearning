@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
+import ErrorModal from "../UI/ErrorModal";
+
 import styles from "./AddUser.module.css";
 
-const AddUser = () => {
-  const [userList, setUserList] = useState([]);
+const AddUser = (props) => {
   const [userName, setuserName] = useState("");
   const [userAge, setuserAge] = useState("");
 
@@ -24,17 +25,18 @@ const AddUser = () => {
       return;
     }
     const newUser = {
+      id: Math.random().toString(),
       userName,
       age: +userAge,
     };
-    setUserList(prevItem=>{
-        return[newUser, ...prevItem];
-    });
+    props.onsaveUserData(newUser);
     setuserAge("");
     setuserName("");
   };
 
   return (
+    <div>
+    <ErrorModal />
     <Card className={styles.input}>
       <form onSubmit={addUserHandler}>
         <label htmlFor="username">Username</label>
@@ -56,6 +58,7 @@ const AddUser = () => {
         <Button type={"submit"}>Add User</Button>
       </form>
     </Card>
+    </div>  
   );
 };
 
