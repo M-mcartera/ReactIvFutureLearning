@@ -5,14 +5,12 @@ import styles from "./HeaderCartButton.module.css";
 
 const HeaderCartButton = () => {
   return (
-    <React.Fragment>
       <button className={styles.button}>
         <div className={styles.icon}>
           <CartIcon />
         </div>
-        <div className={styles.badge}></div>
+        <div className={styles.badge}>3</div>
       </button>
-    </React.Fragment>
   );
 };
-export default HeaderCartButton;
+export default HeaderCartButton;    
