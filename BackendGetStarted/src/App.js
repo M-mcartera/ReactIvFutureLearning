@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 
 import MoviesList from "./components/MoviesList";
+import AddMovie from "./components/AddMovie";
 import "./App.css";
 
 function App() {
@@ -37,8 +38,15 @@ function App() {
   useEffect(() => {
     fetchMoiveHandler();
   }, [fetchMoiveHandler]);
+
+  const addMovieHandler = (movie) => {
+    console.log(movie);
+  }
   return (
     <React.Fragment>
+      <section>
+        <AddMovie onClick={addMovieHandler} />{" "}
+      </section>
       <section>
         <button onClick={fetchMoiveHandler}>Fetch Movies</button>
       </section>
