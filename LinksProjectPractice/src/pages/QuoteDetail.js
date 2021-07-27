@@ -6,11 +6,10 @@ const QuoteDetail = () => {
 
   return (
     <section>
-      New QuoteDetail {params.quoteId}
-      
+      <h1>New QuoteDetail {params.quoteId}</h1>
       <Route path={`/quotes/${params.quoteId}/comments`}>
-            <Comments />
-          </Route>
+        <Comments />
+      </Route>
     </section>
   );
 };
