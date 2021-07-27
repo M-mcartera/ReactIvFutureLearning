@@ -20,33 +20,26 @@ const counterSlice = createSlice({
     },
   },
 });
-// const counterReducer = (state = initState, action) => {
-//   if (action.type === "INCREMENT") {
-//     return { counter: state.counter + 1, shown: state.shown };
-//   }
-//   if (action.type === "DECREMENT") {
-//     return { counter: state.counter - 1, shown: state.shown };
-//   }
-//   if (action.type === "INCREMENT_BY_VALUE") {
-//     return {
-//       counter: state.counter + action.value,
-//       shown: state.shown,
-//     };
-//   }
-//   if (action.type === "TOGGLE") {
-//     return {
-//       counter: state.counter,
-//       shown: !state.shown,
-//     };
-//   }
-//   return state;
-// };
+
+const authInitialState = { authenticated: false};
+const authSlice = createSlice({
+  name: "auth",
+  initialState: authInitialState,
+  reducers: {
+    login(state) {
+      state.authenticated = true;
+    },
+    logout(state){
+        state.authenticated = false;
+    }
+  },
+});
 
 const store = configureStore({
-  reducer: counterSlice.reducer,
+  reducer: {counter: counterSlice.reducer, auth: authSlice.reducer}
 });
 
 export const counterActions = counterSlice.actions;
+export const authAuctions = authSlice.actions;
 
 export default store;
-

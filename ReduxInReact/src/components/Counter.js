@@ -3,8 +3,8 @@ import classes from "./Counter.module.css";
 import { counterActions } from "../store/index";
 const Counter = () => {
   const dispatch = useDispatch();
-  const stateCounter = useSelector((state) => state.counter);
-  const isShown = useSelector((state) => state.counter);
+  const stateCounter = useSelector((state) => state.counter.counter);
+  const isShown = useSelector((state) => state.counter.shown);
 
   const incrementHandler = () => {
     // dispatch({ type: "INCREMENT" });
