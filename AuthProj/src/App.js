@@ -20,11 +20,12 @@ function App() {
             <AuthPage />
           </Route>
         )}
-        {isLoggedIn && (
-          <Route path="/profile">
-            <UserProfile />
-          </Route>
-        )}
+
+        <Route path="/profile">
+          {isLoggedIn && <UserProfile />}
+          {!isLoggedIn && <Redirect to="/auth" />}
+        </Route>
+
         <Route path="*">
           <Redirect to="/" />
         </Route>
