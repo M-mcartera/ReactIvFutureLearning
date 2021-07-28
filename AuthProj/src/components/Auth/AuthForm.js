@@ -6,7 +6,7 @@ const AuthForm = () => {
   const emailInput = useRef();
   const passwordInput = useRef();
   const [isLogin, setIsLogin] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
@@ -16,10 +16,11 @@ const AuthForm = () => {
     const enteredEmail = emailInput.current.value;
     const enteredPassword = passwordInput.current.value;
 
+    setIsLoading(true);
     if (isLogin) {
     } else {
       fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[AIzaSyAzX2g4nO2VumOXe5_E0JaPrJOaDeq2hDI]",
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAzX2g4nO2VumOXe5_E0JaPrJOaDeq2hDI",
         {
           method: "POST",
           headers: {
@@ -32,10 +33,16 @@ const AuthForm = () => {
           }),
         }
       ).then((res) => {
+        setIsLoading(false);
         if (res.ok) {
+          //error
         } else {
           return res.json().then((resData) => {
-            console.log(resData);
+            let errorMessage = "Authentication failed";
+            // if (resData && resData.error && resData.error.message) {
+            //   errorMessage = resData.error.message;
+            // }
+            alert(errorMessage);
           });
         }
       });
@@ -44,7 +51,7 @@ const AuthForm = () => {
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      <form>
+      <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
           <input type="email" id="email" ref={emailInput} required />
@@ -54,7 +61,10 @@ const AuthForm = () => {
           <input type="password" id="password" ref={passwordInput} required />
         </div>
         <div className={classes.actions}>
-          <button>{isLogin ? "Login" : "Create Account"}</button>
+          {!isLoading && (
+            <button>{isLogin ? "Login" : "Create Account"}</button>
+          )}
+          {isLoading && <p>Loading...</p>}
           <button
             type="button"
             className={classes.toggle}
