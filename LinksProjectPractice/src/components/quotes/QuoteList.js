@@ -26,7 +26,7 @@ const QuoteList = (props) => {
   const sortedQuotes = sortQuotes(props.quotes, isSortingAsc);
 
   const changeSortingHandler = () => {
-    history.push(`${location.pathname}?sort=${isSortingAsc ? "desc" : "asc"}`);
+    history.push(`${location.pathname}?sort=${isSortingAsc ? "desc" : "asc"}`);  
   };
 
   return (
