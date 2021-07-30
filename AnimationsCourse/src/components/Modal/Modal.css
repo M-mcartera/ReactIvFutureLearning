@@ -10,4 +10,27 @@
     top: 30%;
     left: 25%;
     width: 50%;
+    transition: all 0.3s ease-in-out;
+}
+.ModalOpen{
+    animation: openModal forwards 0.3s;
+}
+.ModalClosed{
+    transform: translateY(-200%);
+    opacity: 0;
+}
+@keyframes openModal {
+    0%{
+        opacity: 0;
+        transform: translateY(-200%);
+        display: none;
+    }
+    50%{
+        display: block;
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
 }
